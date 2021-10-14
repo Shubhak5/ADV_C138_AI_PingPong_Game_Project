@@ -21,7 +21,7 @@
     <center>
         <div class="btn btn-primary heading">
             <h3> AI PING PONG GAME</h3>
-            <button class="btn btn-primary" data-toggle="modal" data-targer="#myModal">Instructions</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Instructions</button>
         </div>
         <br><br>
         <button class="btn btn-success" id="start" onclick="startGame();">Start Game</button>
@@ -29,8 +29,27 @@
         <div class="btn btn-warning" id="status"></div>
         <br><br>
         <div id="canvas"></div>
-    </center>
+        <button class="btn btn-danger" id="restart" onclick="restart();">Restart</button>
 
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">&times;</button>
+                        <h4>Instructions</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Instructions for palying game:
+                            <br> Move right wrist up and down to move the player paddleup and down
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </center>
+    <div class="copy_right_footer">
+        Created by - WhitehatJr Team
+    </div>
     <script src="main.js "></script>
 </body>
 
