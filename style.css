@@ -29,3 +29,7 @@ body {}
     color: white;
     font-size: 12px;
 }
+
+canvas {
+    border: 1px solid yellow;
+}
