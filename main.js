@@ -24,6 +24,10 @@ var ball = {
     dy: 3
 }
 
+var right_wrist_x = "";
+var right_wrist_y = "";
+var right_wrist_score = 0;
+
 function setup() {
     var canvas = createCanvas(700, 600);
 
@@ -41,6 +45,15 @@ function modelLoaded() {
     console.log("Model is Loaded!");
 }
 
+function gotPoses(results) {
+    if (results.length > 0) {
+        right_wrist_x = results[0].pose.rightWrist.x;
+        right_wrist_y = results[0].pose.rightWrist.y;
+        right_wrist_score = results[0].pose.keypoints[10].score;
+
+        console.log("right_wrist_x = ", right_wrist_x, " right_wrist_y = ", right_wrist_y, " right_wrist_score = ", right_wrist_score);
+    }
+}
 
 function draw() {
 
@@ -72,6 +85,14 @@ function draw() {
     var paddle2y = ball.y - paddle2Height / 2;
     rect(paddle2Y, paddle2y, paddle2, paddle2Height, 100);
 
+    //draw circle for right wrist
+    if (right_wrist_score > 0.2) {
+        fill("#FF0000");
+        stroke("#FF0000");
+        circle(right_wrist_x, right_wrist_y, 10);
+    }
+
+
     //function midline call
     midline();
 
@@ -83,6 +104,7 @@ function draw() {
 
     //function move call which in very important
     move();
+
 }
 
 
