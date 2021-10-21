@@ -29,6 +29,11 @@ var right_wrist_y = "";
 var right_wrist_score = 0;
 var gameStatus = "";
 
+function preload() {
+    ball_missed = loadSound("missed.wav");
+    ball_touch_paddle = loadSound("ball_touch_paddel.wav");
+}
+
 function setup() {
     var canvas = createCanvas(700, 600);
 
@@ -76,7 +81,7 @@ function draw() {
         fill(250, 0, 0);
         stroke(0, 0, 250);
         strokeWeight(0.5);
-        paddle1Y = mouseY;
+        paddle1Y = right_wrist_y; //ADV_C143: modified for right wrist y value
         rect(paddle1X, paddle1Y, paddle1, paddle1Height, 100);
 
 
@@ -113,6 +118,13 @@ function startGame() {
     document.getElementById("status").innerHTML = "Game is Loaded";
 }
 
+function restart() {
+    pcscore = 0;
+    playerscore = 0;
+    if (isLooping() == false) {
+        loop();
+    }
+}
 //function reset when ball does notcame in the contact of padde
 function reset() {
     ball.x = width / 2 + 100,
@@ -161,10 +173,12 @@ function move() {
     if (ball.x - 2.5 * ball.r / 2 < 0) {
         if (ball.y >= paddle1Y && ball.y <= paddle1Y + paddle1Height) {
             ball.dx = -ball.dx + 0.5;
+            ball_touch_paddle.play(); //ADV_C143: added paddle touch sound
         } else {
             pcscore++;
             reset();
             navigator.vibrate(100);
+            ball_missed.play(); //ADV_C143: added missed sound
         }
     }
     if (pcscore == 4) {
@@ -175,7 +189,7 @@ function move() {
         stroke("white");
         textSize(25)
         text("Game Over!☹☹", width / 2, height / 2);
-        text("Reload The Page!", width / 2, height / 2 + 30)
+        text("Press Restart Button to Play Again!", width / 2, height / 2 + 30)
         noLoop();
         pcscore = 0;
     }
